@@ -18,12 +18,14 @@ import Link from '@tiptap/extension-link'
 import TextStyle from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
 import StarterKit from '@tiptap/starter-kit'
-
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { FontSizeExtension } from '@/extensions/font-size';
 import { Ruler } from './ruler';
+import { Threads } from './threads';
 
 
 export const Editor = () => {
+    const liveblocks=useLiveblocksExtension();
     const { setEditor } = useEditorStore(); 
 
     const editor = useEditor({
@@ -59,7 +61,10 @@ export const Editor = () => {
             },
         },
         extensions: [
-            StarterKit,
+            StarterKit.configure({
+              history:false,
+            }),
+            liveblocks,
             FontSizeExtension,
             TaskItem.configure({       //should remove later
                 nested:true,
@@ -87,7 +92,7 @@ export const Editor = () => {
             ImageResize,
             Underline,
         ],
-        content: `
+        /*content: `
         <table>
           <tbody>
             <tr>
@@ -102,7 +107,7 @@ export const Editor = () => {
             </tr>
           </tbody>
         </table>
-      `,
+      `,*/
     })
 
     return (
@@ -112,6 +117,7 @@ export const Editor = () => {
           </div>
           <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
               <EditorContent editor={editor} />
+              <Threads editor={editor}/>
           </div>
       </div>
   );

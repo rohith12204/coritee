@@ -4,6 +4,7 @@ import React, { use } from "react";
 import { Editor } from "./editor"; // Adjust the path to "editor" if it's located elsewhere
 import { Toolbar } from "./toolbar";
 import { Navbar } from "./navbar";
+import { Room } from "./room";
 
 interface DocumentIdPageProps {
   params: Promise<{ documentId: string }>; // params is now a Promise
@@ -19,7 +20,9 @@ const DocumentIdPage: React.FC<DocumentIdPageProps> = ({ params }) => {
         <Toolbar />
       </div>
       <div className="pt-[114px] print:pt-0">
-        <Editor />
+        <Room>
+          <Editor />
+        </Room>
       </div>
     </div>
   );
